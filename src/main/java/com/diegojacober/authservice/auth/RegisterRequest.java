@@ -1,18 +1,17 @@
 package com.diegojacober.authservice.auth;
 
 import com.diegojacober.authservice.user.Role;
+import com.diegojacober.authservice.validation.ValidRole;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class RegisterRequest {
 
     @NotBlank(message = "firstname is required.")
@@ -22,11 +21,12 @@ public class RegisterRequest {
     private String lastname;
 
     @NotBlank(message = "email is required.")
-    @Email
+    @Email(message = "O campo deve ser um email válido")
     private String email;
 
     @NotBlank(message = "password is required.")
     private String password;
 
+    @ValidRole(message = "Defina as roles do usuário")
     private Role role;
 }
